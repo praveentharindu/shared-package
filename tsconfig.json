@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["es2015", "dom"], // Include 'es2015' and 'dom' libraries
+        "jsx": "react",
+        "esModuleInterop": true,
+        "strict": true
+      },
+      "include": ["src"]
+  }

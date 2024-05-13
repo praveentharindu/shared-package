@@ -1,0 +1,32 @@
+{
+  "name": "matomo-setup",
+  "version": "1.0.0",
+  "description": "Description of my package",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src -d dist --verbose"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "keywords": [],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.24.5",
+    "@babel/core": "^7.24.5",
+    "@babel/preset-env": "^7.24.5",
+    "@babel/preset-typescript": "^7.24.1",
+    "@types/lodash": "^4.17.1",
+    "@types/react": "^18.3.2",
+    "typescript": "^5.4.5"
+  }
+}
