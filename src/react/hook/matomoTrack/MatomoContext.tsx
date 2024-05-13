@@ -69,16 +69,31 @@ export const MatomoProvider: React.FC<MatomoProviderProps> = ({ children, matomo
     }
   }, [matomoConfig])
 
-  const trackPageView = (params?: any) => {
-    console.log('start-page-track', params)
-    if (!!window._paq) {
-      console.log('customDimensions-local-2', customDimensions)
-      if (params?.href) window._paq.push(['setCustomUrl', params.href])
-      if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle])
-      window._paq.push(['trackPageView'])
-      console.log('end-page-track')
-    }
+/**
+   * set custom dimension
+   * @param customDimensioncustomDimensions
+   */
+ const setCustomDimension = (customDimension: ICustomDimension) => {
+  if (!!window._paq) {
+    window._paq.push(['setCustomDimension', customDimension.id, customDimension.value])
   }
+}
+
+const trackPageView = (params?: any) => {
+  console.log('start-page-track', params)
+  if (!!window._paq) {
+    console.log('customDimensions-local-2', customDimensions)
+    if (params?.href) window._paq.push(['setCustomUrl', params.href])
+    if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle])
+    if (size(customDimensions) > 0) {
+      customDimensions?.forEach((customDimension: any) => {
+        setCustomDimension(customDimension)
+      })
+    }
+    window._paq.push(['trackPageView'])
+    console.log('end-page-track')
+  }
+}
 
   /**
    * track event

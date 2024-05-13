@@ -61,6 +61,15 @@ var MatomoProvider = function (_a) {
             console.log('customDimensions', matomoConfig.customDimensions);
         }
     }, [matomoConfig]);
+    /**
+       * set custom dimension
+       * @param customDimensioncustomDimensions
+       */
+    var setCustomDimension = function (customDimension) {
+        if (!!window._paq) {
+            window._paq.push(['setCustomDimension', customDimension.id, customDimension.value]);
+        }
+    };
     var trackPageView = function (params) {
         console.log('start-page-track', params);
         if (!!window._paq) {
@@ -69,6 +78,11 @@ var MatomoProvider = function (_a) {
                 window._paq.push(['setCustomUrl', params.href]);
             if (params === null || params === void 0 ? void 0 : params.documentTitle)
                 window._paq.push(['setDocumentTitle', params.documentTitle]);
+            if ((0, size_1.default)(customDimensions) > 0) {
+                customDimensions === null || customDimensions === void 0 ? void 0 : customDimensions.forEach(function (customDimension) {
+                    setCustomDimension(customDimension);
+                });
+            }
             window._paq.push(['trackPageView']);
             console.log('end-page-track');
         }
