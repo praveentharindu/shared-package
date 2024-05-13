@@ -4,7 +4,7 @@
   "description": "Description of my package",
   "main": "index.js",
   "scripts": {
-    "build": "babel src -d dist --verbose"
+    "build": "tsc && babel src --out-dir dist"
   },
   "peerDependencies": {
     "react": "^16.0.0",
