@@ -1,63 +1,39 @@
-import isNil from 'lodash/isNil'
-import size from 'lodash/size'
+// MatomoSetup.ts
 
-declare global {
-  interface Window {
-    _paq: any
-    customDimensions: any[]
-  }
-}
+import { size, isNil } from 'lodash';
+import './globals';
 
-window.customDimensions = []
-
-interface IMatomoConfig {
-  matomoUrl: string
-  matomoSiteId: any
-  customDimensions?: ICustomDimension[]
-}
-
-interface ICustomDimension {
-  id: number
-  value: string
-}
-interface IMatomoTrack {
-  type: 'track-page' | 'track-event' | 'track-search' | 'track-link'
-  info: any
-}
-
-export const setMatomoConfig = (matomoConfig: IMatomoConfig) => {
+function setMatomoConfig(matomoConfig: any) {
   // Initialize Matomo tracker
-  console.log('matomoConfig', matomoConfig)
-  const scriptId = 'matomo-script'
+  console.log('matomoConfig', matomoConfig);
+  const scriptId = 'matomo-script';
   if (
     !isNil(matomoConfig.matomoUrl) &&
     !isNil(matomoConfig.matomoSiteId) &&
     !isNil(document.getElementById(scriptId))
   ) {
-    console.log('set', matomoConfig.matomoUrl, matomoConfig.matomoSiteId)
-    const script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.async = true
-    script.defer = true
-    script.src = `${matomoConfig.matomoUrl}matomo.js`
-    document.body.appendChild(script)
+    console.log('set', matomoConfig.matomoUrl, matomoConfig.matomoSiteId);
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.defer = true;
+    script.src = `${matomoConfig.matomoUrl}matomo.js`;
+    document.body.appendChild(script);
 
-    window._paq = window._paq || []
-    window._paq.push(['disableCookies', false])
-    // window._paq.push(['setCookieDomain', '*.conceptboard.com'])
-    // window._paq.push(['setDomains', '*.conceptboard.com'])
-    window._paq.push(['enableCrossDomainLinking'])
-    window._paq.push(['setDoNotTrack', true])
+    window._paq = window._paq || [];
+    window._paq.push(['disableCookies', false]);
+    window._paq.push(['enableCrossDomainLinking']);
+    window._paq.push(['setDoNotTrack', true]);
 
-    window._paq.push(['setTrackerUrl', `${matomoConfig.matomoUrl}matomo.php`])
-    window._paq.push(['setSiteId', matomoConfig.matomoSiteId])
+    window._paq.push(['setTrackerUrl', `${matomoConfig.matomoUrl}matomo.php`]);
+    window._paq.push(['setSiteId', matomoConfig.matomoSiteId]);
   }
 
   if (size(matomoConfig.customDimensions) > 0) {
-    matomoConfig.customDimensions?.forEach((customDimension) => {
-      window.customDimensions.push(customDimension)
-    })
-    console.log('customDimensions', matomoConfig.customDimensions, window.customDimensions)
+    matomoConfig.customDimensions?.forEach((customDimension: any) => {
+      window.customDimensions.push(customDimension);
+    });
+    console.log('customDimensions', matomoConfig.customDimensions, window.customDimensions);
   }
 }
 
@@ -65,9 +41,9 @@ export const setMatomoConfig = (matomoConfig: IMatomoConfig) => {
  * set custom dimension
  * @param customDimensioncustomDimensions
  */
-const setCustomDimension = (customDimension: ICustomDimension) => {
+function setCustomDimension(customDimension: any) {
   if (!!window._paq) {
-    window._paq.push(['setCustomDimension', customDimension.id, customDimension.value])
+    window._paq.push(['setCustomDimension', customDimension.id, customDimension.value]);
   }
 }
 
@@ -75,19 +51,19 @@ const setCustomDimension = (customDimension: ICustomDimension) => {
  * track page view
  * @param params
  */
-const trackPageView = (params?: any) => {
-  console.log('start-page-track', params)
+function trackPageView(params?: any) {
+  console.log('start-page-track', params);
   if (!!window._paq) {
-    console.log('customDimensions-local-2', window.customDimensions)
+    console.log('customDimensions-local-2', window.customDimensions);
     if (size(window.customDimensions) > 0) {
       window.customDimensions?.forEach((customDimension: any) => {
-        setCustomDimension(customDimension)
-      })
+        setCustomDimension(customDimension);
+      });
     }
-    if (params?.href) window._paq.push(['setCustomUrl', params.href])
-    if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle])
-    window._paq.push(['trackPageView'])
-    console.log('end-page-track')
+    if (params?.href) window._paq.push(['setCustomUrl', params.href]);
+    if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle]);
+    window._paq.push(['trackPageView']);
+    console.log('end-page-track');
   }
 }
 
@@ -95,31 +71,31 @@ const trackPageView = (params?: any) => {
  * track event
  * @param params
  */
-const trackEvent = (params?: any) => {
-  console.log('track-event', params)
+function trackEvent(params?: any) {
+  console.log('track-event', params);
 }
 
 /**
  * track site search
  * @param params
  */
-const trackSiteSearch = (params?: any) => {
-  console.log('track-search', params)
+function trackSiteSearch(params?: any) {
+  console.log('track-search', params);
 }
 
 /**
  * track link
  * @param params
  */
-const trackLink = (params?: any) => {
-  console.log('track-link', params)
+function trackLink(params?: any) {
+  console.log('track-link', params);
 }
 
 /**
  * matomo track
  * @param matomoInfo
  */
-export const setMatomoTracking = (matomoInfo: IMatomoTrack) => {
+ function setMatomoTracking(matomoInfo: any) {
   console.log('track')
   if (matomoInfo.type === 'track-page') {
     trackPageView(matomoInfo.info)
@@ -131,3 +107,13 @@ export const setMatomoTracking = (matomoInfo: IMatomoTrack) => {
     trackLink(matomoInfo.info)
   }
 }
+
+export {
+  setMatomoConfig,
+  setCustomDimension,
+  trackPageView,
+  trackEvent,
+  trackSiteSearch,
+  trackLink,
+  setMatomoTracking
+};

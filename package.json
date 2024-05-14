@@ -26,6 +26,7 @@
     "@babel/preset-env": "^7.24.5",
     "@babel/preset-typescript": "^7.24.1",
     "@types/lodash": "^4.17.1",
+    "@types/node": "^20.12.12",
     "@types/react": "^18.3.2",
     "typescript": "^5.4.5"
   }

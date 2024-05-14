@@ -1,23 +1,18 @@
 "use strict";
 
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
+// MatomoSetup.ts
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setMatomoTracking = exports.setMatomoConfig = void 0;
-var isNil_1 = __importDefault(require("lodash/isNil"));
-var size_1 = __importDefault(require("lodash/size"));
-window.customDimensions = [];
-var setMatomoConfig = function setMatomoConfig(matomoConfig) {
+exports.setMatomoTracking = exports.trackLink = exports.trackSiteSearch = exports.trackEvent = exports.trackPageView = exports.setCustomDimension = exports.setMatomoConfig = void 0;
+var lodash_1 = require("lodash");
+require("./globals");
+function setMatomoConfig(matomoConfig) {
   var _a;
   // Initialize Matomo tracker
   console.log('matomoConfig', matomoConfig);
   var scriptId = 'matomo-script';
-  if (!(0, isNil_1["default"])(matomoConfig.matomoUrl) && !(0, isNil_1["default"])(matomoConfig.matomoSiteId) && !(0, isNil_1["default"])(document.getElementById(scriptId))) {
+  if (!(0, lodash_1.isNil)(matomoConfig.matomoUrl) && !(0, lodash_1.isNil)(matomoConfig.matomoSiteId) && !(0, lodash_1.isNil)(document.getElementById(scriptId))) {
     console.log('set', matomoConfig.matomoUrl, matomoConfig.matomoSiteId);
     var script = document.createElement('script');
     script.type = 'text/javascript';
@@ -27,40 +22,39 @@ var setMatomoConfig = function setMatomoConfig(matomoConfig) {
     document.body.appendChild(script);
     window._paq = window._paq || [];
     window._paq.push(['disableCookies', false]);
-    // window._paq.push(['setCookieDomain', '*.conceptboard.com'])
-    // window._paq.push(['setDomains', '*.conceptboard.com'])
     window._paq.push(['enableCrossDomainLinking']);
     window._paq.push(['setDoNotTrack', true]);
     window._paq.push(['setTrackerUrl', "".concat(matomoConfig.matomoUrl, "matomo.php")]);
     window._paq.push(['setSiteId', matomoConfig.matomoSiteId]);
   }
-  if ((0, size_1["default"])(matomoConfig.customDimensions) > 0) {
+  if ((0, lodash_1.size)(matomoConfig.customDimensions) > 0) {
     (_a = matomoConfig.customDimensions) === null || _a === void 0 ? void 0 : _a.forEach(function (customDimension) {
       window.customDimensions.push(customDimension);
     });
     console.log('customDimensions', matomoConfig.customDimensions, window.customDimensions);
   }
-};
+}
 exports.setMatomoConfig = setMatomoConfig;
 /**
  * set custom dimension
  * @param customDimensioncustomDimensions
  */
-var setCustomDimension = function setCustomDimension(customDimension) {
+function setCustomDimension(customDimension) {
   if (!!window._paq) {
     window._paq.push(['setCustomDimension', customDimension.id, customDimension.value]);
   }
-};
+}
+exports.setCustomDimension = setCustomDimension;
 /**
  * track page view
  * @param params
  */
-var trackPageView = function trackPageView(params) {
+function trackPageView(params) {
   var _a;
   console.log('start-page-track', params);
   if (!!window._paq) {
     console.log('customDimensions-local-2', window.customDimensions);
-    if ((0, size_1["default"])(window.customDimensions) > 0) {
+    if ((0, lodash_1.size)(window.customDimensions) > 0) {
       (_a = window.customDimensions) === null || _a === void 0 ? void 0 : _a.forEach(function (customDimension) {
         setCustomDimension(customDimension);
       });
@@ -70,33 +64,37 @@ var trackPageView = function trackPageView(params) {
     window._paq.push(['trackPageView']);
     console.log('end-page-track');
   }
-};
+}
+exports.trackPageView = trackPageView;
 /**
  * track event
  * @param params
  */
-var trackEvent = function trackEvent(params) {
+function trackEvent(params) {
   console.log('track-event', params);
-};
+}
+exports.trackEvent = trackEvent;
 /**
  * track site search
  * @param params
  */
-var trackSiteSearch = function trackSiteSearch(params) {
+function trackSiteSearch(params) {
   console.log('track-search', params);
-};
+}
+exports.trackSiteSearch = trackSiteSearch;
 /**
  * track link
  * @param params
  */
-var trackLink = function trackLink(params) {
+function trackLink(params) {
   console.log('track-link', params);
-};
+}
+exports.trackLink = trackLink;
 /**
  * matomo track
  * @param matomoInfo
  */
-var setMatomoTracking = function setMatomoTracking(matomoInfo) {
+function setMatomoTracking(matomoInfo) {
   console.log('track');
   if (matomoInfo.type === 'track-page') {
     trackPageView(matomoInfo.info);
@@ -107,5 +105,5 @@ var setMatomoTracking = function setMatomoTracking(matomoInfo) {
   } else if (matomoInfo.type === 'track-link') {
     trackLink(matomoInfo.info);
   }
-};
+}
 exports.setMatomoTracking = setMatomoTracking;
