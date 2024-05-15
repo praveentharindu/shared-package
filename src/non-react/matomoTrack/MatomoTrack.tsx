@@ -1,7 +1,7 @@
 // MatomoSetup.ts
 
 import { size, isNil } from 'lodash';
-import './globals';
+import './global';
 
 function setMatomoConfig(matomoConfig: any) {
   // Initialize Matomo tracker
