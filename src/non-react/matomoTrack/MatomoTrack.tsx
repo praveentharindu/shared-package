@@ -10,7 +10,7 @@ function setMatomoConfig(matomoConfig: any) {
   if (
     !isNil(matomoConfig.matomoUrl) &&
     !isNil(matomoConfig.matomoSiteId) &&
-    !isNil(document.getElementById(scriptId))
+    isNil(document.getElementById(scriptId))
   ) {
     console.log('set', matomoConfig.matomoUrl, matomoConfig.matomoSiteId);
     const script = document.createElement('script');
