@@ -1,4 +1,4 @@
-import './global';
+import "./global";
 declare function setMatomoConfig(matomoConfig: any): void;
 /**
  * set custom dimension
@@ -30,4 +30,4 @@ declare function trackLink(params?: any): void;
  * @param matomoInfo
  */
 declare function setMatomoTracking(matomoInfo: any): void;
-export { setMatomoConfig, setCustomDimension, trackPageView, trackEvent, trackSiteSearch, trackLink, setMatomoTracking };
+export { setMatomoConfig, setCustomDimension, trackPageView, trackEvent, trackSiteSearch, trackLink, setMatomoTracking, };

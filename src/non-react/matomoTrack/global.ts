@@ -7,4 +7,7 @@ declare global {
   }
 }
 
-window.customDimensions = [];
+// Check if window object is available (browser environment)
+if (typeof window !== 'undefined') {
+    window.customDimensions = [];
+}
