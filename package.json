@@ -1,6 +1,6 @@
 {
-  "name": "matomo-track",
-  "version": "1.5.1",
+  "name": "ccs-matomo-service",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@types/lodash": "^4.14.181",
@@ -14,7 +14,6 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
     "test": "react-scripts test --collectCoverageFrom=!src/**/*.stories.tsx --collectCoverageFrom=!src/**/*.types.ts --collectCoverageFrom=!src/**/*.scss --collectCoverageFrom=!src/**/*translation.json --collectCoverageFrom=!src/**/*.ts",
     "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
     "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",

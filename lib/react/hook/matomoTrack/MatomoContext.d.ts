@@ -18,12 +18,20 @@ export interface ICustomDimension {
 }
 export interface IMatomoTrack {
     type: 'track-page' | 'track-event' | 'track-search' | 'track-link';
-    info: any;
+    info: IMatomoTrackPage | IMatomoTrackPage;
 }
-export declare const useMatomo: () => IMatomoContext;
-interface MatomoProviderProps {
+export interface IMatomoTrackPage {
+    href: string;
+    documentTitle: string;
+}
+export interface IMatomoTrackEvent {
+    category: string;
+    action: string;
+    value: string;
+}
+export interface MatomoProviderProps {
     children: ReactNode;
     matomoConfig: IMatomoConfig;
 }
+export declare const useMatomo: () => IMatomoContext;
 export declare const MatomoProvider: React.FC<MatomoProviderProps>;
-export {};
