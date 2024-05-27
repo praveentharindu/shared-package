@@ -56,18 +56,18 @@ function setCustomDimension(customDimension: any) {
  */
 const trackPageView = (params?: any) => {
   console.log('start-page-track', params)
-  // if (!!window._paq) {
-  if (params?.href) window?._paq.push(['setCustomUrl', params.href])
-  if (params?.documentTitle) window?._paq.push(['setDocumentTitle', params.documentTitle])
-  if (size(window?.customDimensions) > 0) {
-    console.log('customDimensions-page-track', window?.customDimensions)
-    window?.customDimensions?.forEach((customDimension: any) => {
-      setCustomDimension(customDimension)
-    })
+  if (!!window._paq) {
+    if (params?.href) window._paq.push(['setCustomUrl', params.href])
+    if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle])
+    if (size(window?.customDimensions) > 0) {
+      console.log('customDimensions-page-track', window?.customDimensions)
+      window?.customDimensions?.forEach((customDimension: any) => {
+        setCustomDimension(customDimension)
+      })
+    }
+    window._paq.push(['trackPageView'])
+    console.log('end-page-track')
   }
-  window?._paq.push(['trackPageView'])
-  console.log('end-page-track')
-  // }
 }
 
 /**
@@ -76,16 +76,18 @@ const trackPageView = (params?: any) => {
  */
 const trackEvent = (params?: any) => {
   console.log('start-track-event', params)
-  if (size(window?.customDimensions) > 0) {
-    console.log('customDimensions-event-track', window?.customDimensions)
-    window?.customDimensions?.forEach((customDimension: any) => {
-      setCustomDimension(customDimension)
-    })
+  if (!!window._paq) {
+    if (size(window?.customDimensions) > 0) {
+      console.log('customDimensions-event-track', window?.customDimensions)
+      window?.customDimensions?.forEach((customDimension: any) => {
+        setCustomDimension(customDimension)
+      })
+    }
+    if (params?.href) window._paq.push(['setCustomUrl', params.href])
+    if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle])
+    window._paq.push(['trackEvent', params?.category, params?.action, params?.value])
+    console.log('end-track-event', params)
   }
-  if (params?.href) window?._paq.push(['setCustomUrl', params.href])
-  if (params?.documentTitle) window?._paq.push(['setDocumentTitle', params.documentTitle])
-  window?._paq.push(['trackEvent', params?.category, params?.action, params?.value])
-  console.log('end-track-event', params)
 }
 
 /**
@@ -94,23 +96,25 @@ const trackEvent = (params?: any) => {
  */
 const trackSiteSearch = (params?: any) => {
   console.log('start-track-search', params)
-  if (size(window?.customDimensions) > 0) {
-    console.log('customDimensions-event-track', window?.customDimensions)
-    window?.customDimensions?.forEach((customDimension: any) => {
-      setCustomDimension(customDimension)
-    })
+  if (!!window._paq) {
+    if (size(window?.customDimensions) > 0) {
+      console.log('customDimensions-event-track', window?.customDimensions)
+      window?.customDimensions?.forEach((customDimension: any) => {
+        setCustomDimension(customDimension)
+      })
+    }
+    if (params?.href) window._paq.push(['setCustomUrl', params.href])
+    if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle])
+    window._paq.push(['trackEvent', params?.keyword, params?.category, params?.resultsCount])
+    console.log('end-track-search', params)
   }
-  if (params?.href) window?._paq.push(['setCustomUrl', params.href])
-  if (params?.documentTitle) window?._paq.push(['setDocumentTitle', params.documentTitle])
-  window?._paq.push(['trackEvent', params?.keyword, params?.category, params?.resultsCount])
-  console.log('end-track-search', params)
 }
 
 /**
  * matomo track
  * @param matomoInfo
  */
-function setMatomoTracking(matomoInfo: any) {
+ function setMatomoTracking(matomoInfo: any) {
   console.log('track', matomoInfo)
   if (matomoInfo.type === 'track-page') {
     trackPageView(matomoInfo.info)
@@ -128,4 +132,4 @@ export {
   trackEvent,
   trackSiteSearch,
   setMatomoTracking,
-}
+};
