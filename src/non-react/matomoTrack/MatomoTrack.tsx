@@ -50,43 +50,24 @@ function setCustomDimension(customDimension: any) {
   }
 }
 
-// /**
-//  * track page view
-//  * @param params
-//  */
-// function trackPageView(params?: any) {
-//   console.log('start-page-track', params)
-//   if (!!window._paq) {
-//     console.log('customDimensions-local-2', window.customDimensions)
-//     if (size(window.customDimensions) > 0) {
-//       window.customDimensions?.forEach((customDimension: any) => {
-//         setCustomDimension(customDimension)
-//       })
-//     }
-//     if (params?.href) window._paq.push(['setCustomUrl', params.href])
-//     if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle])
-//     window._paq.push(['trackPageView'])
-//     console.log('end-page-track')
-//   }
-// }
 /**
  * track page view
  * @param params
  */
 const trackPageView = (params?: any) => {
   console.log('start-page-track', params)
-  if (!!window._paq) {
-    if (params?.href) window._paq.push(['setCustomUrl', params.href])
-    if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle])
-    if (size(window?.customDimensions) > 0) {
-      console.log('customDimensions-page-track', window?.customDimensions)
-      window?.customDimensions?.forEach((customDimension: any) => {
-        setCustomDimension(customDimension)
-      })
-    }
-    window._paq.push(['trackPageView'])
-    console.log('end-page-track')
+  // if (!!window._paq) {
+  if (params?.href) window?._paq.push(['setCustomUrl', params.href])
+  if (params?.documentTitle) window?._paq.push(['setDocumentTitle', params.documentTitle])
+  if (size(window?.customDimensions) > 0) {
+    console.log('customDimensions-page-track', window?.customDimensions)
+    window?.customDimensions?.forEach((customDimension: any) => {
+      setCustomDimension(customDimension)
+    })
   }
+  window?._paq.push(['trackPageView'])
+  console.log('end-page-track')
+  // }
 }
 
 /**
@@ -101,9 +82,9 @@ const trackEvent = (params?: any) => {
       setCustomDimension(customDimension)
     })
   }
-  if (params?.href) window._paq.push(['setCustomUrl', params.href])
-  if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle])
-  window._paq.push(['trackEvent', params?.category, params?.action, params?.value])
+  if (params?.href) window?._paq.push(['setCustomUrl', params.href])
+  if (params?.documentTitle) window?._paq.push(['setDocumentTitle', params.documentTitle])
+  window?._paq.push(['trackEvent', params?.category, params?.action, params?.value])
   console.log('end-track-event', params)
 }
 
@@ -119,9 +100,9 @@ const trackSiteSearch = (params?: any) => {
       setCustomDimension(customDimension)
     })
   }
-  if (params?.href) window._paq.push(['setCustomUrl', params.href])
-  if (params?.documentTitle) window._paq.push(['setDocumentTitle', params.documentTitle])
-  window._paq.push(['trackEvent', params?.keyword, params?.category, params?.resultsCount])
+  if (params?.href) window?._paq.push(['setCustomUrl', params.href])
+  if (params?.documentTitle) window?._paq.push(['setDocumentTitle', params.documentTitle])
+  window?._paq.push(['trackEvent', params?.keyword, params?.category, params?.resultsCount])
   console.log('end-track-search', params)
 }
 
