@@ -114,7 +114,7 @@ const trackSiteSearch = (params?: any) => {
  * matomo track
  * @param matomoInfo
  */
- function setMatomoTracking(matomoInfo: any) {
+function setMatomoTracking(matomoInfo: any) {
   console.log('track', matomoInfo)
   if (matomoInfo.type === 'track-page') {
     trackPageView(matomoInfo.info)
@@ -132,4 +132,4 @@ export {
   trackEvent,
   trackSiteSearch,
   setMatomoTracking,
-};
+}

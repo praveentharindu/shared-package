@@ -13,7 +13,7 @@ export interface IMatomoContext {
 }
 
 export interface IMatomoConfig {
-  matomoUrl: string
+  matomoUrl: string | null | undefined
   matomoSiteId: any
   customDimensions?: ICustomDimension[]
 }
@@ -24,7 +24,7 @@ export interface ICustomDimension {
 }
 export interface IMatomoTrack {
   type: 'track-page' | 'track-event' | 'track-search' | 'track-link'
-  info: IMatomoTrackPage | IMatomoTrackPage
+  info: IMatomoTrackPage | IMatomoTrackPage | IMatomoTrackSiteSearch
 }
 
 export interface IMatomoTrackPage {
@@ -36,6 +36,12 @@ export interface IMatomoTrackEvent {
   category: string
   action: string
   value: string
+}
+
+export interface IMatomoTrackSiteSearch {
+  keyword: string
+  category: string
+  resultsCount: string
 }
 
 export interface MatomoProviderProps {
