@@ -1,5 +1,5 @@
 // index.js
-import { MatomoProvider, useMatomo } from './src/react/hook/matomoTrack/MatomoContext'
-import { setMatomoConfig, setMatomoTracking } from './src/non-react/matomoTrack'
+import { CustomMetricProvider, useCustomMetric } from './src/react/hook/customMetric'
+import { setCustomMetricTracking, setMetricConfig } from './src/non-react/customMetric'
 
-export { MatomoProvider, useMatomo, setMatomoConfig, setMatomoTracking };
+export { CustomMetricProvider, useCustomMetric, setCustomMetricTracking, setMetricConfig }
