@@ -1,2 +1,2 @@
-export * from './non-react/matomoTrack';
-export * from './react/hook/matomoTrack';
+export * from './react/hook/customMetric';
+export * from './non-react/customMetric';
