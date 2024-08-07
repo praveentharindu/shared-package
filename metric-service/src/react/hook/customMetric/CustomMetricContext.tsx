@@ -1,3 +1,4 @@
+import size from 'lodash/size'
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react'
 
 declare global {
@@ -21,13 +22,18 @@ export const useCustomMetric = () => useContext(CustomMetricContext)
 
 export const CustomMetricProvider: React.FC<MatomoProviderProps> = ({ children, metricConfig }) => {
   const [matomoCustomDimensions, setMatomoCustomDimensions] = useState<any>([])
+  const [customDimensions, setCustomDimensions] = useState<any>([])
 
   useEffect(() => {
     console.log('set-config', metricConfig)
+    if (size(metricConfig.customDimensions) > 0) {
+      setCustomDimensions(metricConfig.customDimensions)
+      console.log('customDimensions-set', metricConfig.customDimensions)
+    }
   }, [metricConfig])
 
-  const setCustomMetric = () => {
-    console.log('set custom metrics')
+  const setCustomMetric = (metricInfo: any) => {
+    console.log('set custom metrics', metricInfo, customDimensions)
   }
 
   const customMetric = {

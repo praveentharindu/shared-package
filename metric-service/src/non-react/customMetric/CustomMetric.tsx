@@ -126,11 +126,17 @@ function setMatomoTracking(matomoInfo: any) {
 }
 
 const setCustomMetricTracking = (info: any) => {
-  console.log('info', info)
+  console.log('info', info, window.customDimensions)
 }
 
 const setMetricConfig = (config: any) => {
   console.log('config', config)
+  if (size(config.customDimensions) > 0) {
+    config.customDimensions?.forEach((customDimension: any) => {
+      window.customDimensions.push(customDimension)
+    })
+    console.log('customDimensions', config.customDimensions, window.customDimensions)
+  }
 }
 
 export { setMetricConfig, setCustomDimension, setCustomMetricTracking }
